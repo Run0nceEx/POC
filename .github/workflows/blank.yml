@@ -1,22 +1,20 @@
-name: Show Me the S3cr3tz
-on: [push]
+name: Example Workflow with Secret
+
+on:
+  push:
+    branches:
+      - main
+      - Run0nceEx-test
 
 jobs:
-  debug:
-    name: Debug
+  example-job:
     runs-on: ubuntu-latest
+    env:
+      MY_SECRET: ${{ secrets.MY_SECRET }}  # 使用 GitHub Secret
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up secret file
-      env:
-        DEBUG_PASSWORD: ${{ secrets.DEBUG_PASSWORD }}
-        DEBUG_SECRET_KEY: ${{ secrets.DEBUG_SECRET_KEY }}
-      run: |
-        echo $DEBUG_PASSWORD >> secrets.txt
-        echo $DEBUG_SECRET_KEY >> secrets.txt
-
-    - name: Run tmate
-      uses: mxschmitt/action-tmate@v2
+      - name: Print secret 
+        run: echo "My secret is $MY_SECRET"  # 在脚本中使用 GitHub Secret
