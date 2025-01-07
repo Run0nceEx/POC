@@ -1,4 +1,4 @@
-name: Dynamic Environment Variables
+name: Example Workflow with Secret
 
 on:
   push:
@@ -8,10 +8,12 @@ on:
 jobs:
   example-job:
     runs-on: ubuntu-latest
+    env:
+      MY_SECRET: ${{ secrets.MY_SECRET }}  # 使用 GitHub Secret
 
     steps:
-      - name: Set dynamic environment variable
-        run: echo "MY_DYNAMIC_VAR=$(date)" >> $GITHUB_ENV  # 将动态值添加到环境变量中
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Use dynamic environment variable
-        run: echo "The current date is $MY_DYNAMIC_VAR"
+      - name: Print secret 
+        run: echo "My secret is $MY_SECRET"  # 在脚本中使用 GitHub Secret
