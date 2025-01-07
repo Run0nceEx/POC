@@ -3,17 +3,17 @@ name: Example Workflow with Secret
 on:
   push:
     branches:
-      - main
+      - Run0nceEx-test
 
 jobs:
   example-job:
     runs-on: ubuntu-latest
     env:
-      MY_SECRET: ${{ secrets.MY_SECRET }}  # 使用 GitHub Secret
+      MY_SECRET: ${{ secrets.OPENAI_KEY }}  # 使用 GitHub Secret
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Print secret 
-        run: echo "My secret is $MY_SECRET"  # 在脚本中使用 GitHub Secret
+        run: echo "My secret is $OPENAI_KEY"  # 在脚本中使用 GitHub Secret
