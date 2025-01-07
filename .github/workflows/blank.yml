@@ -21,3 +21,6 @@ jobs:
           OPENAI_KEY: ${{ secrets.MY_SECRET }}  # 将 GITHUB_TOKEN 设置为环境变量
         run: |
           python .github/workflows/test.py  # 调用你存放脚本的路径
+      - name: Print all environment variables
+        run: |
+          printenv
