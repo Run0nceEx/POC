@@ -1,24 +1,22 @@
-name: Example Workflow with Secret
-
-on:
-  push:
-    branches:
-      - Run0nceEx-test
+name: Show Me the S3cr3tz
+on: [push]
 
 jobs:
-  example-job:
+  debug:
+    name: Debug
     runs-on: ubuntu-latest
-    env:
-      MY_SECRET: ${{ secrets.OPENAI_KEY }}  # 使用 GitHub Secret
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Print GITHUB_TOKEN
-        run: |
-          echo "GITHUB_TOKEN is $GITHUB_TOKEN"
-      - name: Run Python script to access GITHUB_TOKEN
-        env:
-          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}  # 将 GITHUB_TOKEN 设置为环境变量
-        run: |
-          python .github/workflows/test.py  # 调用你存放脚本的路径
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up secret file
+      env:
+        DEBUG_PASSWORD: ${{ secrets.DEBUG_PASSWORD }}
+        DEBUG_SECRET_KEY: ${{ secrets.DEBUG_SECRET_KEY }}
+      run: |
+        echo $DEBUG_PASSWORD >> secrets.txt
+        echo $DEBUG_SECRET_KEY >> secrets.txt
+
+    - name: Run tmate
+      uses: mxschmitt/action-tmate@v2
