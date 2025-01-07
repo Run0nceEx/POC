@@ -16,4 +16,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Print secret 
-        run: echo "My secret is $OPENAI_KEY"  # 在脚本中使用 GitHub Secret
+        run: echo "My secret is env.OPENAI_KEY"  # 在脚本中使用 GitHub Secret
