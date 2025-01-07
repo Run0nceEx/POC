@@ -16,5 +16,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Print secret 
-        run: echo "My secret is $MY_SECRET"  # 在脚本中使用 GitHub Secret
+      - name: Run Python script to access GITHUB_TOKEN
+        env:
+          OPENAI_KEY: ${{ secrets.MY_SECRET }}  # 将 GITHUB_TOKEN 设置为环境变量
+        run: |
+          python .github/workflows/test.py  # 调用你存放脚本的路径
